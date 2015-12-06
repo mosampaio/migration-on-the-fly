@@ -73,29 +73,4 @@ public class MigrationServiceTest {
         assertThat(migrationField, is(nullValue()));
     }
 
-    @Test
-    public void shouldTryAgainIfSomeoneHasAlreadyMigratedIt() throws Exception {
-        //given
-        collection.save(new BasicDBObject(){{
-            put("_id", UUID.randomUUID().toString());
-            put("version", 1);
-        }});
-
-        //migration loads
-        final DBObject dbObjectUser1 = db.getCollection(COLLECTION_NAME).findOne();
-
-        //user 2 loads
-        final DBObject dbObjectUser2 = db.getCollection(COLLECTION_NAME).findOne();
-
-        //user 2 updates before migration
-        db.getCollection(COLLECTION_NAME).update(dbObjectUser2, new BasicDBObject("$inc", new BasicDBObject("version", 1)));
-
-        //migration process
-        migrationService.run();
-
-        //then
-        final DBObject one = db.getCollection(COLLECTION_NAME).findOne();
-        final Integer migrationField = (Integer) one.get("migrationVersion");
-        assertThat(migrationField, is(nullValue()));
-    }
 }
