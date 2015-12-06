@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.13'
+    compile 'org.springframework.data:spring-data-mongodb:1.8.1.RELEASE'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.github.fakemongo:fongo:1.5.+'
+    testCompile 'org.springframework:spring-test:3.2+'
+    testCompile 'org.slf4j:slf4j-simple:1.7.13'
+
+}
