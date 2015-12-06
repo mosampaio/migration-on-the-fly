@@ -13,9 +13,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.UUID;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertFalse;
 
 public class MigrationServiceTest {
 
@@ -65,12 +63,10 @@ public class MigrationServiceTest {
         db.getCollection(COLLECTION_NAME).update(dbObjectUser2, new BasicDBObject("$inc", new BasicDBObject("version", 1)));
 
         //migration process
-        migrationService.migrateAndUpdateInMongo(dbObjectUser1);
+        boolean result = migrationService.migrateAndUpdateInMongo(dbObjectUser1);
 
         //then
-        final DBObject one = db.getCollection(COLLECTION_NAME).findOne();
-        final Integer migrationField = (Integer) one.get("migrationVersion");
-        assertThat(migrationField, is(nullValue()));
+        assertFalse(result);
     }
 
 }
