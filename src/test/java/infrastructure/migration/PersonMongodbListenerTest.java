@@ -5,7 +5,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import domain.Person;
 import infrastructure.repository.PersonRepository;
-import infrastructure.test.PersonMongodbListener;
+import infrastructure.test.PersonWithOldSchema;
 import infrastructure.test.PersonWithOldSchemaRepository;
 import infrastructure.test.TestMigrationConfiguration;
 import infrastructure.test.TestMongoConfiguration;
@@ -49,7 +49,7 @@ public class PersonMongodbListenerTest {
         //given
         final String id = UUID.randomUUID().toString();
         final String telephone = "14159363485";
-        final PersonMongodbListener personWithOldSchema = new PersonMongodbListener(id, "Marcos", telephone);
+        final PersonWithOldSchema personWithOldSchema = new PersonWithOldSchema(id, "Marcos", telephone);
         personWithOldSchemaRepository.save(personWithOldSchema);
 
         //when
